@@ -1,0 +1,272 @@
+{
+"items": [
+{
+"kbId": 1,
+"title": "Solution Delivery Management",
+"Description": "A Path Traversal attack aims to access files and directories that are stored outside the web root folder. By browsing the application, the attacker looks for absolute links to files stored on the web server. By manipulating variables that reference files with dotdotslash (../); sequences and its variations, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and critical system files, limited by system operational access control. The attacker uses  ../../ sequences to move up to root directory, thus permitting navigation through the file system. This attack can be executed with an external malicious code injected on the path, like the Resource Injection attack.  ",
+"Solution": "The most effective solution to eliminate file inclusion vulnerabilities is to avoid passing usersubmitted input to any filesystem/framework API. If this is not possible the application can maintain a white list of files, that may be included on the page, and then use an identifier (for example the index number) to access the selected file. Any request containing an invalid identifier has to be rejected, in this way there is no attack surface for malicious users to manipulate the path."
+},
+{
+"kbId": 3,
+"title": "SDM",
+"Description": "Every time the application gets userinput, whether this showing it on screen or processing this data in the application background, these parameters should be escaped for malicious code in order to prevent crosssite scripting injections. When an attacker gains the possibility to perform an XSS injection, he is given the opportunity to inject HTML and JavaScript code directly into the application. This could lead to accounts being compromised by stealing session cookies or directly affect the operation of the target application.  ",
+"Solution": "In order to prevent XSS injections, all userinput should be escaped or encoded. You could start by sanitizing userinput as soon as it is inserted into the application, by preference using a so called whitelisting method. This means you should not check for malicious content like the tags or anything, but only allow the expected input. Every input which is outside of the intended operation of the application should immediately be detected and login rejected. Do not try to help use the input in any way because that could introduce a new type of attack by converting characters. The second step would be encoding all the parameters or userinput before putting this in your html with encoding libraries specially designed for this purpose.You should take into consideration that there are several contexts for encoding userinput for escaping XSS injections. These contexts are amongst others:HTML encoding is for whenever your userinput is displayed directly into your HTML. HTML attribute encoding is the type of encoding/escaping that should be applied whenever your user input is displayed into the attribute of your HTML tags. HTML URL encoding ;This type of encoding/escaping should be applied to whenever you are using userinput into a HREF tag.JavaScript encoding should be used whenever parameters are rendered via JavaScript; your application will detect normal injections in the first instant. But your application still remains vulnerable to JavaScript encoding which will not be detected by the normal encoding/escaping methods."
+},
+{
+"kbId": 4,
+"title": "Continous Integration",
+"Description": "Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. Command injection attacks are possible when an application passes unsafe user supplied data (forms, cookies, HTTP headers etc.) to a system shell. In this attack, the attackersupplied operating system commands are usually executed with the privileges of the vulnerable application. Command injection attacks are possible largely due to insufficient input validation. This attack differs from Code Injection, in that code injection allows the attacker to adds his own code that is then executed by the application. In Code Injection, the attacker extends the default functionality of the application without the necessity of executing system commands. ",
+"Solution": "Userinput that is used in a shell command should not contain dangerous characters. A blacklist of characters is not a good option because it may be difficult to think of all of the characters to validate against. A white list containing only allowable characters should be created to validate the userinput. "
+},
+{
+"kbId": 5,
+"title": "Continous Delivery",
+"Description": "CrossSite Request Forgery (CSRF) is a type of attack that occurs when a malicious Web site, email, blog, instant message, or program causes a users Web browser to perform an unwanted action on a trusted site for which the user is currently authenticated.The impact of a successful crosssite request forgery attack is limited to the capabilities exposed by the vulnerable application. For example, this attack could result in a transfer of funds, changing a password, or purchasing an item in the users context. In effect, CSRF attacks are used by an attacker to make a target system perform a function (funds Transfer, form submission etc.) via the targets browser without knowledge of the target user at least until the unauthorised function has been committed. ",
+"Solution": "To arm an application against automated attacks and tooling you need to use unique tokens which are included into the forms of an application, API calls or AJAX requests.   Any state changing operation requires a secure random token (e.g CSRF token) to prevent against CSRF attacks. Characteristics of a CSRF Token are a unique, large random value generated by a cryptographically secure random number generator.The CSRF token is then added as a hidden field for forms and validated on the sever side whenever a user is sending a request to the server.Note : Whenever the application is an REST service and is using tokens such as JWT tokens, whenever these tokens are being sent in the application headers rather than stored in cookies the application should not be suspectible to CSRF attacks for a succesfull CSRF attacke depends on the browsers cookie jar. "
+},
+{
+"kbId": 6,
+"title": "CI",
+"Description": "Processing of an Xml eXternal Entity containing tainted data may lead to the disclosure of confidential information and other system impacts. The XML 1.0 standard defines the structure of an XML document. The standard defines a concept called an entity, which is a storage unit of some type.There exists a specific type of entity, an external general parsed entity often shortened to an external entity, that can access local or remote content via a declared system identifier and the XML processor may disclose confidential information normally not accessible by the application. Attacks can include disclosing local files, which may contain sensitive data such as passwords or private user data. ",
+"Solution": "Disable the possibility to fetch resources from an external source. This is normally done in the configuration of the used XML parser. "
+},
+{
+"kbId": 7,
+"title": "CD",
+"Description": "Web applications heavily use databases to store and access the data they need for their operations. Historically, relational databases have been by far the most common technology for data storage, but in the last years, we are witnessing an increasing popularity for databases that organise data using the XML language. Just like relational databases are accessed via SQL language, XML databases use XPath as their standard query language. ",
+"Solution": "Just like the techniques to avoid SQL injection, you need to use a parameterised XPath interface if one is available, or escape the user input to make it safe to include in a dynamically constructed query. If you are using quotes to terminate untrusted input in a dynamically constructed XPath query, then you need to escape that quote in the untrusted input to ensure the untrusted data can not try to break out of that quoted context. "
+},
+{
+"kbId": 8,
+"title": "Bitbucket",
+"Description": "XML Injection is an attack technique used to manipulate or compromise the logic of an XML application or service. The injection of unintended XML content and/or structures into an XML message can alter the intended logic of the application. Further, XML injection can cause the insertion of malicious content into the resulting message/document. ",
+"Solution": "In addition to the existing input validation, define a positive approach which escapes/encodes characters that can be interpreted as XML. At a minimum this includes the following: < > / \" ' "
+},
+{
+"kbId": 9,
+"title": "Bitbucket Onboarding",
+"Description": "A vulnerability occurs when an XSL file is loaded from a source controlled by an attacker. When the attacker is given the opportunity to specify the source of the included XSL file he could include a file which contains malicious code to be parsed on the target application. This could lead to, code execution, reading arbitrary files and many more vulnerabilities such as XSS. ",
+"Solution": "To protect against such vulnerability one needs to make sure that he does not use usersupplied input in the XSL filename. The best solution would be to define a list of permitted filenames and only accept XSL filenames from that list. "
+},
+{
+"kbId": 10,
+"title": "Bitbucket Repository New",
+"Description": "Processing of an external entity containing tainted data may lead to the disclosure of confidential information and other system impacts. The XML 1.0 standard defines the structure of an XML document. The standard defines a concept called an entity, which is a storage unit of some type. There exists a specific type of entity, an external general parsed entity often shortened to an external entity that can access local or remote content via a declared system identifier. The system identifier is assumed to be a URI that can be dereferenced (accessed) by the XML processor when processing the entity. The XML processor then replaces occurrences of the named external entity with the contents dereferenced by the system identifier. If the system identifier contains tainted data and the XML processor dereferences this tainted data, the XML processor may disclose confidential information normally not accessible by the application. Attacks can include disclosing local files, which may contain sensitive data such as passwords or private user data, using file: schemes or relative paths in the system identifier. Since the attack occurs relative to the application processing the XML document, an attacker may use this trusted application to pivot to other internal systems, possibly disclosing other internal content via HTTP(s) requests. In some situations, an XML processor library that is vulnerable to clientside memory corruption issues may be exploited by dereferencing a malicious URI, possibly allowing arbitrary code execution under the application account. Other attacks can access local resources that may not stop returning data, possibly impacting application availability if too many threads or processes are not released.  ",
+"Solution": "Disable the XML DTD (Document Type Definition) parsing. This can be set when initiating the XML parser. "
+},
+{
+"kbId": 11,
+"title": "Repository Access",
+"Description": "LDAP (Lightweight Directory Access Protocol) Injection is an attack used to exploit web based applications that construct LDAP statements based on user input. When an application fails to properly sanitize user input, it is possible to modify LDAP statements using a local proxy. This could result in the execution of arbitrary commands such as granting permissions to unauthorized queries, and content modification inside the LDAP tree. The same advanced exploitation techniques available in SQL Injection can be similarly applied in LDAP Injection. ",
+"Solution": "The best way to prevent LDAP injection is to use a positive validation scheme for ensuring that the data going into your queries does not contain any attacks. However, in some cases, it is necessary to include special characters in the input that is passed into an LDAP query. In this case, using escaping can prevent the LDAP interpreter from thinking those special characters are actually part of the LDAP query. "
+},
+{
+"kbId": 12,
+"title": "Repository Write Access",
+"Description": "Web servers usually give developers the ability to add small pieces of dynamic code inside static HTML pages, without having to deal with fullfledged serverside or clientside languages.This feature is incarnated by the ServerSide Includes (SSI). The attacker will try to inject code into the application that will be interpreted by SSI mechanisms. A successful exploitation of this vulnerability allows an attacker to inject code into HTML pages or even perform remote code execution. ",
+"Solution": "The SSI handler on the webserver should not be activated when it is not used. "
+},
+{
+"kbId": 13,
+"title": "Repository Admin",
+"Description": "Uploaded files represent a significant risk to applications. The first step in many attacks is to get some code to the system to be attacked. Then the attack only needs to find a way to get the code executed. Using a file upload helps the attacker accomplish the first step.The consequences of unrestricted file upload can vary, including complete system takeover, an overloaded file system or database, forwarding attacks to backend systems, and simple defacement.There are really two classes of problems here. The first is with the file metadata, like the path and file name. These are generally provided by the transport, such as HTTP multipart encoding. This data may trick the application into overwriting a critical file or storing the file in a bad location. You must validate the metadata extremely carefully before using it.The other class of problem is with the file size or content. An attacker can easily craft a valid image file with PHP code inside. ",
+"Solution": "Uploaded files always need to be placed outside the document root of the webserver.You should also check the userinput(filename) for having the right allowed extensions such as .jpg, .png etc.Note: when checking these extensions always make sure your application validates the last possible extension so an attacker could not simply inject \".jpg.php\" and bypass your validationAfter this validation, you must also check the userinput(filename) for containing possible path traversal patterns in order to prevent him from uploading outside of the intended directory.Most developers also do a mimetype check. This is a good protection however not whenever you are checking this mimetype through the post request. This header can not be trusted since it can be easily manipulated by an attacker.The best way to check the mimetype is to extract the file from the server after uploading and check it from the file itself. Deleting it whenever it does not comply with expected values.You may also want to check if the filenames do already exist before uploading in order to prevent the overwriting of files.Also for serving the files back there needs to be a file handler function that can select the file based on an identifier that will serve the file back towards the user. "
+},
+{
+"kbId": 14,
+"title": "Bitbucket Repository SSH Public Key Setup",
+"Description": "Whenever a programmer decides to use third party software, he should keep an eye implementing a proper version management methodology for this software. When hackers discover vulnerabilities they often publish these exploits online in order to push the developers of this software to fix their issues. As a result, when your software is not upgraded to the latest available version, script kiddies could easily compromise your application by following the exploit tutorials online, thus compromising your application. ",
+"Solution": "One option is not to use components that you did not write. But that is not very realistic.Most component projects do not create vulnerability patches for old versions. Instead, most simply fix the problem in the next version. So upgrading to these new versions is critical. Software projects should have a process in place to:Identify all components and the versions you are using, including all dependencies. (e.g., the versions plugin).Monitor the security of these components in public databases, project mailing lists, and security mailing lists, and keep them up to date.Establish security policies governing components use, such as requiring certain software development practices, passing security tests, and acceptable licenses.Where appropriate, consider adding security wrappers around components to disable unused functionality and/ or secure weak or vulnerable aspects of the component.This also goes for all other components that should be up to date with proper security configuration(s) and version(s) such as server OS etc.This should include removal of unneeded configurations and folders such as sample applications, platform documentation, and default or example users. "
+},
+{
+"kbId": 15,
+"title": "Bitbucket Repository Pull Request",
+"Description": "In the development stage of an application, programmers add debugging information in order to debug certain functionalities. However, this stage often displays sensitive technical information. If an attacker gains this technical information, he can learn more about the operation of the application. The application should always display userfriendly messages only when put in a live environment. ",
+"Solution": "The level of debugging information needs to be determined according to the environment where the code is running. "
+},
+{
+"kbId": 16,
+"title": "Artifactory",
+"Description": "Sometimes it is possible through an \"enabling debug parameter\" to display technical information within the application. As a result, the attacker learns more about the operation of the application, increasing his attack vector. ",
+"Solution": "Disable the possibility to enable debug information on a live environment. "
+},
+{
+"kbId": 17,
+"title": "Artifactory Onboarding",
+"Description": "Each site uses a robots.txt file which allows search engines to provide information. The robots.txt determines what pages may or may not be indexed by google or yahoo etc. However, a common mistake made by programmers is applying a blacklisting method causing the application displaying sensitive information to attackers. ",
+"Solution": "Instead of the blacklisting method:Useragent: * Disallow: /squirrelmail/ Disallow: /admin/ Disallow: /modules/You should use a whitelisting method:Useragent: * Disallow: * Allow: /index.html Allow: /home.html "
+},
+{
+"kbId": 18,
+"title": "Artifactory Repository Types",
+"Description": "Applications often include files in other pages. When these files can be directly approached by normal users, the operation of the application can be traced because the source code becomes available. This improves the possibility that the attacker discovers vulnerabilities.It is also highly recommended that old files are removed from the server and not beind stored or backuped as i.e \"file.php.old\".  ",
+"Solution": "Always add the different types of extensions to the webserver handler to parse. This way the file source cannot be viewed. "
+},
+{
+"kbId": 19,
+"title": "Artifactory Repository URL",
+"Description": "Anticaching headers have the ability to tell the browser, computer and proxies what information they may or may not store on the intermediate media ",
+"Solution": "These headers are also known as the: Cachecontrol: nostore,nocache and provide protection of sensitive information when implemented in the application or webserver.Rightly configured anti caching headers will look like the following as a response\tExpires: Tue, 03 Jul 2001 06:00:00 GMT \tLastModified: {now} GMT \tCacheControl: nostore, nocache, mustrevalidate, maxage=0 \tCacheControl: postcheck=0, precheck=0 \tPragma: nocache "
+},
+{
+"kbId": 20,
+"title": "Artifact Latest Version",
+"Description": "Clickjacking, also known as a \"UI redress attack\", is when an attacker uses multiple transparent or opaque layers to trick a user into clicking on a button or link on another page when they were intending to click on the top level page. Thus, the attacker is \"hijacking\" clicks meant for their page and routing them to another page, most likely owned by another application, domain, or both.Using a similar technique, keystrokes can also be hijacked. With a carefully crafted combination of stylesheets, iframes, and text boxes, a user can be led to believe they are typing in the password to their email or bank account, but are instead typing into an invisible frame controlled by the attacker. ",
+"Solution": "To avoid your application from being clickjacked you can add the XframeOptions header to your application. These headers can be configured as:    XframeOptions: denyThe page cannot be displayed in a frame, regardless of the site attempting to do so.    XFrameOptions: sameorign  The page can only be displayed in a frame on the same origin as the page itself.    XFrameOptions: ALLOWFROM uriThe page can only be displayed in a frame on the specified origin.You may also want to consider to include \"Framebreaking/Framebusting\" defense for legacy browsers that do not support XFrameOption headers.Source: https://www.codemagi.com/blog/post/194 "
+},
+{
+"kbId": 21,
+"title": "Ansible Tower",
+"Description": "This header enables the Crosssite scripting (XSS) filter built into most recent web browsers. It is usually enabled by default anyway, so the role of this header is to reenable the filter for this particular website if it was disabled by the user. This header is supported in IE 8 and in Chrome 4. ",
+"Solution": "These headers are also known as the: XXSSProtection: 1; mode=block and provide protection against XSS attacks when implemented in the application or webserver.NOTE: This header only protects against some reflected XSS attacks. This is no substitute for normal escaping and input filtering and sanitization. "
+},
+{
+"kbId": 22,
+"title": "Ansible Tower Onboarding",
+"Description": "The only defined value, nosniff, prevents Internet Explorer and Google Chrome from MIMEsniffing a response away from the declared contenttype. This also applies to Google Chrome, when downloading extensions. This reduces exposure to driveby download attacks and sites serving user uploaded content that, by clever naming, could be treated by MSIE as executable or dynamic HTML files. ",
+"Solution": "These headers are also known as the: XContentTypeOptions: nosniff; and provide protection against Mime content type attacks when implemented in the application or webserver. "
+},
+{
+"kbId": 25,
+"title": "Ansible",
+"Description": "HTTP StrictTransportSecurity (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. This reduces the impact of bugs in web applications leaking session data through cookies and external links and defends against Maninthemiddle attacks. HSTS also disables the ability for user's to ignore SSL negotiation warnings ",
+"Solution": "These headers are also known as the: StrictTransportSecurity: maxage=16070400: includeSubDomains and provide protection against SSL Strip attacks when implemented in the application or web server.When connecting to an HSTS host for the first time, the browser won't know whether or not to use a secure connection, because it has never received an HSTS header from that host. Consequently, an active network attacker could prevent the browser from ever connecting securely (and even worse, the user may never realize something is amiss). To mitigate this attack, you can add your application to a preload list which makes HSTS enforced by default. When a user connects to one of these hosts for the first time, the browser will know that it must use a secure connection. If a network attacker prevents secure connections to the server, the browser will not attempt to connect over an insecure protocol, thus maintaining the user's security.Visit:     https://hstspreload.appspot.com/ Here you can find how to add your application to HSTS preload "
+},
+{
+"kbId": 26,
+"title": "Ansible vault",
+"Description": "Sensitive data should not be stored in a cookie,because the cookie is also used on the clientside and is adaptable thus making its content readable. A hacker could gain access to a cookie through cross site scripting attacks and gain the sensitive information stored in the targets cookie. ",
+"Solution": "Do not store sensitive information in cookies. "
+},
+{
+"kbId": 27,
+"title": "Ansible Tower UAT",
+"Description": "An application can implement all kinds of logic rules through JavaScript and HTML. However, these are clientside constraints that a hacker can easily disable or modify. ",
+"Solution": "User restrictions should always be imposed by serverside techniques instead of clientside constraints. "
+},
+{
+"kbId": 28,
+"title": "Ansible Tower Dev",
+"Description": "The error messages that are displayed when a user fails to login into an application should be selected with caution. When this error message gives away too much information, this information can be exploited by a hacker. ",
+"Solution": "The application should never publish available usernames. When an attacker gains this information he increases his attack vector and reduces the time required to identify accounts.I.e:Imagine a forgot password function where the user enters his username in order for the application to send a new password to his email address, the user enters a correct username and the application responds with:\u201cEmail successfully sent to your email address.\u201d When the user enters an incorrect username it says,  \u201cError: user does not exist.\u201dThis function would be vulnerable to username enumeration "
+},
+{
+"kbId": 29,
+"title": "Jenkins",
+"Description": "Login functions should not be abused in an automated way that an attacker could create a script that contains a list of usernames and passwords, which he could use against your login function in order to gain unauthorized access to user accounts. ",
+"Solution": "Implement a method that limits the amount of tries with automated tools. Some examples are using a CAPTCHA or a TARPIT(ratelimiting) method.Be aware that a simple limitation on number of tries may be used as a method to perform denialofservice attack and hence to block certain users like system administrator from logging in. A mechanism combines tries limit with challengeresponse test can be used to prevent this risk while providing convenience for actual user login. For example, start to ask user to complete a CAPTCHA or a TARPIT question during login after a certain number of tries is reached. "
+},
+{
+"kbId": 30,
+"title": "Jenkins Pipeline",
+"Description": "Whenever the opportunity to log into the application is offered, it should not lock out accounts. A hacker could abuse this function to make the application deny access towards its power users. ",
+"Solution": "The application should not lockout users when they enter false login credentials. "
+},
+{
+"kbId": 31,
+"title": "Jenkins Pipelien Onboarding",
+"Description": "Tokens or passwords that are used within the application must contain high entropy in order to prevent the prediction of these values. ",
+"Solution": "Tokens should contain a high level entropy and randomness to prevent predictable token generation. All random numbers, random file names, random GUIDs, and random must be generated using the cryptographic module's approved random number generator when these random values are intended to be unguessable by an attacker. "
+},
+{
+"kbId": 32,
+"title": "Jenkins File",
+"Description": "An application which offers user login functionality, usually has an administration page where userdata can be modified. When the user wants to change this data he should specify his current password. ",
+"Solution": "When changing user credentials or email address the user must always enter a valid password in order to implement the changes. This is also called reauthentication or stepup / adaptive authentication. Whenever a user \"reauthenticates\" himself the current session ID value should also be refreshed in order to fend oFf so called \"session hijackers\" "
+},
+{
+"kbId": 33,
+"title": "Jenkins pipeline for gradle",
+"Description": "Double decoding is a problem which often occurs when multiple servers are used in which a configuration error is made. A hacker can encode his payload differently so it will not be recognized by a Web Application Firewall (WAF) or an Intrusion Detection System (IDS) and also bypass the escaping of the application.By using double encoding it's possible to bypass security filters that only decode user input once. The second decoding process is executed by the backend platform or modules that properly handle encoded data, but don't have the corresponding security checks in place.Attackers can inject double encoding in pathnames or query strings to bypass the authentication scheme and security filters in use by the web application. ",
+"Solution": "Only one webserver should decode/encode the data. "
+},
+{
+"kbId": 34,
+"title": "Jenkins pipeline for Maven",
+"Description": "A resource identifier injection basically means that the attacker can determine which resources are loaded into the web application. An attacker could thus influence the operation of the web application and redirect users to other websites. This attack consists of changing resource identifiers used by an application in order to perform a malicious task. When an application permits a user input to define a resource, like a file name or port number, this data can be manipulated to execute or access different resources. In order to be properly executed, the attacker must have the possibility to specify a resource identifier through the application form and the application must permit the execution. The resource type affected by user input indicates the content type that may be exposed. For example, an application that permits input of special characters like period, slash, and backlash is risky when used in methods that interact with the file system. The resource injection attack focuses on accessing other resources than the local filesystem, which is different attack technique known as a Path Manipulation attack. ",
+"Solution": "Safe use of resource identifiers can be done by performing authorisation checks if the identifier belongs to the user. "
+},
+{
+"kbId": 35,
+"title": "Jenkins pipeline for Ant",
+"Description": "When user input is used to evaluate scripting code, highsecurity risks could be introduced. If the input is not properly escaped an attacker can inject his own script code and gain access to the server. ",
+"Solution": "Do not use direct userinput in the dynamic scripting function. You should first use an input validation or encoding function on the user submitted data to clean and sanitize the input against malicious intent. "
+},
+{
+"kbId": 36,
+"title": "Jenkins pipeline for SBT",
+"Description": "If the application uses regular expressions which receive user input, then the user input should be properly escaped. If not done properly, then the hacker can affect the regular expression and modify their logic. In some cases, an attacker could even gain access to the server.  ",
+"Solution": "Do not use userinput without escaping in a regular expression \"regex pattern\", Since this could lead to serious security vulnerabilities. "
+},
+{
+"kbId": 37,
+"title": "Jenkins pipeline for .NET",
+"Description": "A hacker must not gain the ability to abuse an applications email functionality by means of scripts which sends automated spamming mails. ",
+"Solution": "This problem could be prevented by implementing CAPTCHA or ratelimiting mechanisms. "
+},
+{
+"kbId": 38,
+"title": "Jenkins pipeline for Node",
+"Description": "The secure flag is an option that can be set when creating a cookie. This flag ensures that the cookie will not be sent over an unencrypted connection by the browser,which ensures that the session cookie can not be sent over a nonencrypted link. ",
+"Solution": "When creating a session cookie which is sent over an encrypted connection you should set the secure flag. The Secure flag should be set during every setcookie. This will instruct the browser to never send the cookie over HTTP. The purpose of this flag is to prevent the accidental exposure of a cookie value if a user follows an HTTP link. "
+},
+{
+"kbId": 39,
+"title": "Software Product Key",
+"Description": "An HttpOnly flag is an option that can be set when creating a cookie. This flag ensures that the cookie cannot be read or edited by JavaScript. This ensures an attacker cannot steal this cookie as a crosssite scripting vulnerability is present in the application. ",
+"Solution": "The HttpOnly flag should be set to disable malicious script access to the cookie values such as the session ID value. Also, disable unnecessary HTTP request methods such as the TRACE option. Misconfiguration of the HTTP request headers can lead to stealing the session cookie even though HttpOnly protection is in place. "
+},
+{
+"kbId": 40,
+"title": "SPK",
+"Description": "When an attacker obtains a users session cookie, then he can steal the identity of the user which the session cookie belongs to. ",
+"Solution": "As soon as a session is set for an authenticated user, the server should keep track of the IP address in which the user used when he started the session. When the server discovers a change in IP address, for instance when an attacker hijacks an users session. The server then should deny access, destroy the session and redirect the 'hijacker' to the login page. "
+},
+{
+"kbId": 41,
+"title": "Onboarding of SCALA application",
+"Description": "If the session cookies are sent over an unencrypted connection, they should be withdrawn immediately. These cookies are not to be trusted anymore as a hacker may have captured their values. ",
+"Solution": "Session cookies that are used to authenticate the user should always be set on a secure connection.In order to achieve this, you should set the \"secure\" flag on your session cookie to make sure your application in any circumstance does not send this cookie over nonHTTPS connections. "
+},
+{
+"kbId": 42,
+"title": "Onboarding of JAVA application",
+"Description": "The encryption techniques used in the application must be known and proven methods. When there is a selfmade hashing algorithm developed, it is likely to contain vulnerabilities due to mathflaws resulting in encryption which can be broken. ",
+"Solution": "Never implement your own designed Crypto functions. Verify that cryptographic modules used by the application have been validated against FIPS 1402 or an equivalent standard. "
+},
+{
+"kbId": 43,
+"title": "Deploy application",
+"Description": "An application could implement authentication functionalities through JavaScript and HTML. However, these are clientside constraints that are imposed, which means that a hacker can easily disable or modify these constraints. ",
+"Solution": "Never implement clientside authentication constraints, since these are easily bypassed. When implementing authentication methods always use serverside solutions. "
+},
+{
+"kbId": 44,
+"title": "Trigger build job",
+"Description": "An application uses parameters in order to process data. These parameters can also be used to assign certain roles and retrieve Content corresponding with those parameters. For example:    www.target.com/index.php?loggedin=userIn this situation the application will get content and subscribe user roles corresponding to the user parameter.    www.target.com/index.php?loggedin=adminIn this situation the application will get content and subscribe user roles corresponding to the admin parameter. (Note: the above two links are no longer available.) ",
+"Solution": "Whenever you are checking whether a user is restricted to review certain data, the access restrictions should be processed serverside.The userID should be stored inside of a session variable on login and should be used to retrieve user data from the database like : SELECT data from personaldata where userID=:id < session varNow a possible attacker cannot tamper and change the application operation since the identifier for retrieving the data is handled serverside. "
+},
+{
+"kbId": 45,
+"title": "Onboarding Process for an application",
+"Description": "Throughout development of the application, there must be perpetual checks in place to check if all pages and resources by default require authentication except those specifically intended to be public.Sometimes developers simply forget to implement these checks, or they remove the checks  temporarily for testing purposes.  ",
+"Solution": "Verify all access controls are implemented properly in order to prevent a user access data/functions which  he was not intended to use. "
+},
+{
+"kbId": 46,
+"title": "Jira",
+"Description": "All SQL queries, HQL, OSQL, NOSQL and stored procedures, related to stored procedures should be protected by the use of query parameterization. If an attacker can inject malicious code into these queries and gain the ability to manipulate them and can withdraw, update and delete data which is stored on the target database. ",
+"Solution": "The use of prepared statements and parameterized queries is how all developers should first be taught how to write database queries. They are simple to write, and easier to understand than dynamic queries. Parameterized queries force the developer to first define all the SQL code, and then pass in each parameter to the query later. This coding style allows the database to distinguish between code and data, regardless of what user input is supplied. "
+},
+{
+"kbId": 47,
+"title": "Create Jira ticket",
+"Description": "Verify that account passwords are one way hashed with a salt, and there is sufficient work  factor to defeat brute force and password hash recovery attacks. ",
+"Solution": "Recommended for password usage are PBKDF functions. PBKDF2 uses a pseudorandom function  and a configurable number of iterations to derive a cryptographic key from a password.  Because this process is difficult to reverse (similar to a cryptographic hash function) but can also be configured to be slow to compute, key derivation functions are ideally  suited for password hashing use cases.Another alternative would be bcrypt. bcrypt is a password hashing function designed by  Niels Provos and David Mazi\u00e8res, based on the Blowfish cipher, and presented at USENIX in  1999. Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an  adaptive function: over time, the iteration count can be increased to make it slower,  so it remains resistant to bruteforce search attacks even with increasing computation power. "
+},
+{
+"kbId": 48,
+"title": "Edit Jira ticket",
+"Description": "Whenever sensitive information is sent by unencrypted methods an attacker could intercept this data and use this for malicious intents. ",
+"Solution": "All sensitive information should always be sent by encrypted methods such as HTTPS(TLS) connections. "} ]
+}

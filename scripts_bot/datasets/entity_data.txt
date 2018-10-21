@@ -1,0 +1,45 @@
+Solution Delivery Management
+SDM
+Continous Integration
+Continous Delivery
+CI
+CD
+Bitbucket
+Bitbucket Onboarding
+Bitbucket Repository New
+Repository Access
+Repository Write Access
+Repository Admin
+Bitbucket Repository SSH Public Key Setup
+Bitbucket Repository Pull Request
+Artifactory
+Artifactory Onboarding
+Artifactory Repository Types
+Artifactory Repository URL
+Artifact Latest Version
+Ansible Tower
+Ansible Tower Onboarding
+Ansible
+Ansible vault
+Ansible Tower UAT
+Ansible Tower Dev
+Jenkins
+Jenkins Pipeline
+Jenkins Pipelien Onboarding
+Jenkins File
+Jenkins pipeline for gradle
+Jenkins pipeline for Maven
+Jenkins pipeline for Ant
+Jenkins pipeline for SBT
+Jenkins pipeline for .NET
+Jenkins pipeline for Node
+Software Product Key
+SPK
+Onboarding of SCALA application
+Onboarding of JAVA application
+Deploy application
+Trigger build job
+Onboarding Process for an application
+Jira
+Create Jira ticket
+Edit Jira ticket
